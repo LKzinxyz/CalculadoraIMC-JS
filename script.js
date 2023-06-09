@@ -5,13 +5,17 @@ function resetForm() {
     document.getElementById("height").value = "";
     document.getElementById("result").innerHTML = "";
     document.getElementById("result").className = "";
+    document.querySelector(".calculator").classList.remove("green-border", "red-border", "orange-border");
+    document.querySelector(".calculator").classList.add("blue-border");
   }
+  
   
   function calculateIMC() {
     var name = document.getElementById("name").value;
     var age = document.getElementById("age").value;
-    var weight = parseWeightHeightValue(document.getElementById("weight").value, 3);
-    var height = parseWeightHeightValue(document.getElementById("height").value, 2);
+    var weight = parseFloat(document.getElementById("weight").value);
+    var height = parseFloat(document.getElementById("height").value);
+    var calculatorElement = document.querySelector(".calculator");
     var resultElement = document.getElementById("result");
   
     if (!isValidName(name) || !isValidAge(age) || isNaN(weight) || isNaN(height)) {
@@ -44,37 +48,26 @@ function resetForm() {
   
     resultElement.innerHTML = name + ", <br>Seu IMC: " + imc.toFixed(2) + ". <br>" + message;
     resultElement.className = className;
-  }
   
-  function parseWeightHeightValue(value, digits) {
-    var numericValue = value.replace(',', '.');
-    var length = numericValue.length;
+    // Remove todas as classes de borda
+    calculatorElement.classList.remove("green-border", "red-border", "orange-border");
   
-    if (length === digits) {
-      var integerPart = numericValue.slice(0, length - 1);
-      var decimalPart = numericValue.slice(length - 1);
-      numericValue = integerPart + "." + decimalPart;
+    // Adiciona a classe de borda correta
+    if (className === "normal") {
+      calculatorElement.classList.add("green-border");
+    } else if (className === "below") {
+      calculatorElement.classList.add("red-border");
+    } else {
+      calculatorElement.classList.add("orange-border");
     }
-  
-    return parseFloat(numericValue);
   }
   
-  function isValidName(value) {
-    return /^[A-Za-z\s]+$/.test(value);
+  function isValidName(name) {
+    return name.trim().length > 0;
   }
   
-  function isValidAge(value) {
-    return /^\d+$/.test(value);
-  }
-  
-  document.getElementById("name").addEventListener("input", function(event) {
-    var input = event.target;
-    var sanitizedValue = sanitizeName(input.value);
-    input.value = sanitizedValue;
-  });
-  
-  function sanitizeName(value) {
-    var sanitizedValue = value.replace(/[^A-Za-z\s]/g, "");
-    return sanitizedValue;
+  function isValidAge(age) {
+    var parsedAge = parseInt(age);
+    return !isNaN(parsedAge) && parsedAge > 0;
   }
   
