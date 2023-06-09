@@ -13,6 +13,7 @@ body {
     padding: 20px;
     border-radius: 35px;
     width: 300px;
+    border: 2px solid #368fa5;
   }
   
   .calculator h2 {
@@ -65,5 +66,16 @@ body {
   
   .above {
     color: orange;
+  }
+  
+  input[type="text"],
+  input[type="number"] {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    padding: 10px;
+    border: 2px solid #368fa5;
+    border-radius: 4px;
+    box-sizing: border-box;
   }
   
