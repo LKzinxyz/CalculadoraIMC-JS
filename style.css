@@ -42,10 +42,11 @@ body {
     border-radius: 8px;
     cursor: pointer;
     margin-top: 10px;
+    transition: background-color 0.3s ease;
   }
   
   .calculator button:hover {
-    background-color: #45a049;
+    background-color: #368fa5;
   }
   
   .result {
